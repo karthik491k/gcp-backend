@@ -1,0 +1,39 @@
+server:
+  address: ${SERVER_ADDRESS:0.0.0.0}
+  port: ${PORT:10000}
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: globalcart-backend
+
+  cloud:
+    gcp:
+      project-id: ${GCP_PROJECT_ID:globalcart-dev-project}
+      credentials:
+        use-anonymous-credentials: ${USE_ANONYMOUS_CREDENTIALS:true}
+      spanner:
+        instance-id: ${SPANNER_INSTANCE_ID:globalcart-spanner-instance}
+        database: ${SPANNER_DATABASE_ID:globalcart_db}
+        emulator-host: ${SPANNER_EMULATOR_HOST:localhost:9010}
+        auto-create-resources: false
+
+  jackson:
+    property-naming-strategy: LOWER_CAMEL_CASE
+    default-property-inclusion: NON_NULL
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+    expiration-ms: 86400000 # 24 hours
+  spanner:
+    use-emulator: ${USE_SPANNER_EMULATOR:true}
+    mock-fallback-enabled: ${MOCK_FALLBACK_ENABLED:true}
+
+logging:
+  level:
+    root: INFO
+    com.logancee.globalcart: DEBUG
+    org.springframework.security: INFO
+    com.google.cloud.spanner: INFO
